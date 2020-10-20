@@ -1,24 +1,9 @@
-//package java.com.dots;
-//
-//import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-//import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertTrue;
-//import java.util.List;
-//
-//import com.dots.persistence.model.Category;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.MediaType;
-//
-//import org.junit.Test;
-//
-//import io.restassured.RestAssured;
-//import io.restassured.response.Response;
-//
-//public class SpringBootBootstrapLiveTest {
-//
-//    private static final String API_ROOT = "http://localhost:8080/api/categories";
-//
+package com.dots;
+
+public class SpringBootBootstrapLiveTest {
+
+    private static final String API_ROOT = "http://localhost:8080/api/categories";
+
 //    @Test
 //    public void whenGetAllCategories_thenOK() {
 //        final Response response = RestAssured.get(API_ROOT);
@@ -125,5 +110,5 @@
 //        return API_ROOT + "/" + response.jsonPath()
 //                .get("id");
 //    }
-//
-//}
+
+}

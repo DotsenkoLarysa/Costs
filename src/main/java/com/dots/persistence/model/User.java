@@ -1,6 +1,7 @@
 package com.dots.persistence.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.security.Timestamp;
 import java.util.Objects;
 
@@ -13,12 +14,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long user_id;
 
+    @NotBlank(message="Username is mandatory")
     @Column(name="username", nullable = false, unique = true)
     private String username;
 
+    @NotBlank(message="Email is mandatory")
     @Column(name="email", nullable = false)
     private String email;
 
+    @NotBlank(message="Password is mandatory")
     @Column(name="password", nullable = false, unique = true)
     private String password;
 

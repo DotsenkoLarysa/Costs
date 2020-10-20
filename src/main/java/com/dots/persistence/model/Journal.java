@@ -1,6 +1,7 @@
 package com.dots.persistence.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,12 +17,14 @@ public class Journal {
     @Column(name="event_date", nullable = false)
     private Date event_date;
 
+    @NotBlank(message="Sum is mandatory")
     @Column(name="event_sum", nullable = false)
     private Double event_sum;
 
     @Column(name="description")
     private String description;
 
+    @NotBlank(message="Specify cost category")
     @Column(name="categoryId", nullable = false)
     private int categoryId;
 
