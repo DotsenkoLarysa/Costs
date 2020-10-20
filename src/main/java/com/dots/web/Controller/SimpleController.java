@@ -1,4 +1,4 @@
-package com.dots.web;
+package com.dots.web.Controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

@@ -17,5 +17,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     String deleteUser(@PathVariable long id, Model model);
 
+    Iterable<User> findAll();
+
+    User findOne(@PathVariable long id);
+
     List<User> findByUsername(String username);
 }

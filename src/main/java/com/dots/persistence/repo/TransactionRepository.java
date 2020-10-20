@@ -2,9 +2,11 @@ package com.dots.persistence.repo;
 
 import com.dots.persistence.model.Transaction;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
-    List<Transaction> findByIdTransaction(Long id);
+
+    Iterable<Transaction> findAll();
+
+    Transaction findOne(@PathVariable long id);
 }
