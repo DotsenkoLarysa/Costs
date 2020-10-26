@@ -11,7 +11,7 @@ public class Category {
     @Id
     @Column(name="category_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long category_id;
+    private Long category_id;
 
     @NotBlank(message="Specify the category name")
     @Column(name="name_category", nullable = false, unique = true)
@@ -24,17 +24,17 @@ public class Category {
     public Category() {
     }
 
-    public Category(long category_id, String name_category, int percentage) {
+    public Category(Long category_id, String name_category, int percentage) {
         this.category_id = category_id;
         this.name_category = name_category;
         this.percentage = percentage;
     }
 
-    public long getCategory_id() {
+    public Long getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(int category_id) {
+    public void setCategory_id(Long category_id) {
         this.category_id = category_id;
     }
 
@@ -54,20 +54,6 @@ public class Category {
         this.percentage = percentage;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return category_id == category.category_id &&
-                percentage == category.percentage &&
-                Objects.equals(name_category, category.name_category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(category_id, name_category, percentage);
-    }
 
     @Override
     public String toString() {

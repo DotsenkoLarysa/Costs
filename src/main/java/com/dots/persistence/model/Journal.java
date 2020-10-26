@@ -12,7 +12,7 @@ public class Journal {
     @Id
     @Column(name="event_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long event_id;
+    private Long event_id;
 
     @Column(name="event_date", nullable = false)
     private Date event_date;
@@ -37,7 +37,7 @@ public class Journal {
     public Journal() {
     }
 
-    public Journal(long event_id, Date event_date, Double event_sum, String description, int categoryId, int transactionId, int periodId) {
+    public Journal(Long event_id, Date event_date, Double event_sum, String description, int categoryId, int transactionId, int periodId) {
         this.event_id = event_id;
         this.event_date = event_date;
         this.event_sum = event_sum;
@@ -51,7 +51,7 @@ public class Journal {
         return event_id;
     }
 
-    public void setEvent_id(long event_id) {
+    public void setEvent_id(Long event_id) {
         this.event_id = event_id;
     }
 
@@ -103,24 +103,6 @@ public class Journal {
         this.periodId = periodId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Journal journal = (Journal) o;
-        return event_id == journal.event_id &&
-                categoryId == journal.categoryId &&
-                transactionId == journal.transactionId &&
-                periodId == journal.periodId &&
-                Objects.equals(event_date, journal.event_date) &&
-                Objects.equals(event_sum, journal.event_sum) &&
-                Objects.equals(description, journal.description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(event_id, event_date, event_sum, description, categoryId, transactionId, periodId);
-    }
 
     @Override
     public String toString() {

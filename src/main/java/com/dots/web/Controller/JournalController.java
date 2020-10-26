@@ -1,78 +1,59 @@
 package com.dots.web.Controller;
 
 import com.dots.persistence.model.Journal;
-import com.dots.persistence.repo.JournalRepository;
+import com.dots.service.JournalService;
+import com.dots.web.exception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/journal")
+@Controller
+@RequestMapping("/journal")
 public class JournalController {
 
+    private final JournalService journalService;
+
     @Autowired
-    public JournalController(JournalRepository journalRepository) {
-        this.journalRepository = journalRepository;
+    public JournalController(JournalService journalService) {
+        this.journalService = journalService;
     }
 
-    private final JournalRepository journalRepository;
-
-    @GetMapping
-    public Iterable<Journal> findAll() {
-        return journalRepository.findAll();
+    @RequestMapping("/show_all")
+    public String getAllJournals(Model model) {
+        List<Journal> list = journalService.getAllJournals();
+        model.addAttribute("journals", list);
+        return "list-journals";
     }
 
-    @GetMapping("/{id}")
-    public Journal findOne(@PathVariable long id) {
-        return journalRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Journal Id:" + id));}
-
-
-    @GetMapping("/journalup")
-    public String showJournalUpForm(Journal journal) {
-        return "add-of-journal";
-    }
-
-    @PostMapping("/addjournal")
-    public String addJournal(@Valid Journal journal, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-of-journal";
+    @GetMapping(path={"/edit", "/edit/{id}"})
+    public String editJournalById(Model model, @PathVariable("id") Long event_id)
+            throws RecordNotFoundException
+    {
+        if (event_id != null) {
+            Journal journal = journalService.getJournalById(event_id);
+            model.addAttribute("journal", journal);
+        } else {
+            model.addAttribute("journal", new Journal());
         }
-        journalRepository.save(journal);
-        model.addAttribute("journals", journalRepository.findAll());
-        return "redirect:/index-journal";
+        return "add-edit-journal";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showJournalUpdateForm(@PathVariable long id, Model model) {
-        Journal journal = journalRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid journal id:" + id));
-        model.addAttribute("journal", journal);
-        return "update-journal";
-
+    @PostMapping("/create")
+    public String createOrUpdateJournal(Journal journal){
+        journalService.createOrUpdateJournal(journal);
+        return "redirect:/";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateJournal(@PathVariable long id, @Valid Journal journal,
-                                BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            journal.setEvent_id(id);
-            return "update-journal";
-        }
-        journalRepository.save(journal);
-        model.addAttribute("journals", journalRepository.findAll());
-        return "redirect:/index-journal";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteJournal(@PathVariable long id, Model model) {
-        Journal journal = journalRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid journal Id:" + id));
-        journalRepository.delete(journal);
-        model.addAttribute("journals", journalRepository.findAll());
-        return "index-journal";
+    @DeleteMapping("/delete/{id}")
+    public String deleteJournalById(Model model, @PathVariable("id") Long id)
+            throws RecordNotFoundException
+    {
+        journalService.deleteJournalById(id);
+        return "redirect:/";
     }
 }

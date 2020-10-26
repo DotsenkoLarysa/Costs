@@ -11,7 +11,7 @@ public class Balance {
     @Id
     @Column(name="balance_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long balance_id;
+    private Long balance_id;
 
     @Column(name="create_date", nullable = false)
     private Date create_date;
@@ -85,7 +85,7 @@ public class Balance {
     public Balance() {
     }
 
-    public Balance(long balance_id, Date create_date, Double necessary_plus, Double necessary_minus, Double necessary_balance, Double education_plus, Double education_minus, Double education_balance, Double accumulation_plus, Double accumulation_minus, Double accumulation_balance, Double stocks_plus, Double stocks_minus, Double stocks_balance, Double leisure_plus, Double leisure_minus, Double leisure_balance, Double charity_plus, Double charity_minus, Double charity_balance, Double cashbook_plus, Double cashbook_minus, Double cashbook_balance, int periodId_balance) {
+    public Balance(Long balance_id, Date create_date, Double necessary_plus, Double necessary_minus, Double necessary_balance, Double education_plus, Double education_minus, Double education_balance, Double accumulation_plus, Double accumulation_minus, Double accumulation_balance, Double stocks_plus, Double stocks_minus, Double stocks_balance, Double leisure_plus, Double leisure_minus, Double leisure_balance, Double charity_plus, Double charity_minus, Double charity_balance, Double cashbook_plus, Double cashbook_minus, Double cashbook_balance, int periodId_balance) {
         this.balance_id = balance_id;
         this.create_date = create_date;
         this.necessary_plus = necessary_plus;
@@ -116,7 +116,7 @@ public class Balance {
         return balance_id;
     }
 
-    public void setBalance_id(long balance_id) {
+    public void setBalance_id(Long balance_id) {
         this.balance_id = balance_id;
     }
 
@@ -302,42 +302,6 @@ public class Balance {
 
     public void setPeriodId_balance(int periodId_balance) {
         this.periodId_balance = periodId_balance;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Balance balance = (Balance) o;
-        return balance_id == balance.balance_id &&
-                periodId_balance == balance.periodId_balance &&
-                Objects.equals(create_date, balance.create_date) &&
-                Objects.equals(necessary_plus, balance.necessary_plus) &&
-                Objects.equals(necessary_minus, balance.necessary_minus) &&
-                Objects.equals(necessary_balance, balance.necessary_balance) &&
-                Objects.equals(education_plus, balance.education_plus) &&
-                Objects.equals(education_minus, balance.education_minus) &&
-                Objects.equals(education_balance, balance.education_balance) &&
-                Objects.equals(accumulation_plus, balance.accumulation_plus) &&
-                Objects.equals(accumulation_minus, balance.accumulation_minus) &&
-                Objects.equals(accumulation_balance, balance.accumulation_balance) &&
-                Objects.equals(stocks_plus, balance.stocks_plus) &&
-                Objects.equals(stocks_minus, balance.stocks_minus) &&
-                Objects.equals(stocks_balance, balance.stocks_balance) &&
-                Objects.equals(leisure_plus, balance.leisure_plus) &&
-                Objects.equals(leisure_minus, balance.leisure_minus) &&
-                Objects.equals(leisure_balance, balance.leisure_balance) &&
-                Objects.equals(charity_plus, balance.charity_plus) &&
-                Objects.equals(charity_minus, balance.charity_minus) &&
-                Objects.equals(charity_balance, balance.charity_balance) &&
-                Objects.equals(cashbook_plus, balance.cashbook_plus) &&
-                Objects.equals(cashbook_minus, balance.cashbook_minus) &&
-                Objects.equals(cashbook_balance, balance.cashbook_balance);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(balance_id, create_date, necessary_plus, necessary_minus, necessary_balance, education_plus, education_minus, education_balance, accumulation_plus, accumulation_minus, accumulation_balance, stocks_plus, stocks_minus, stocks_balance, leisure_plus, leisure_minus, leisure_balance, charity_plus, charity_minus, charity_balance, cashbook_plus, cashbook_minus, cashbook_balance, periodId_balance);
     }
 
     @Override

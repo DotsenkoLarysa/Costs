@@ -1,58 +1,57 @@
 package com.dots.web.Controller;
 
 import com.dots.persistence.model.Period;
-import com.dots.persistence.repo.PeriodRepository;
+import com.dots.service.PeriodService;
+import com.dots.web.exception.RecordNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/api/periods")
 public class PeriodController {
 
+    private final PeriodService periodService;
+
     @Autowired
-    public PeriodController(PeriodRepository periodRepository) {
-        this.periodRepository = periodRepository;
+    public PeriodController(PeriodService periodService) {
+        this.periodService = periodService;
     }
 
-    private final PeriodRepository periodRepository;
-
-    @GetMapping
-    public Iterable<Period> findAll() {
-        return periodRepository.findAll();
+    @RequestMapping("/show_all")
+    public String getAllPeriods(Model model) {
+        List<Period> list = periodService.getAllPeriods();
+        model.addAttribute("periods", list);
+        return "list-periods";
     }
 
-
-    @GetMapping("/period/{periodname}")
-    public List <Period> findByPeriodName(@PathVariable String periodname) {
-      //  return periodRepository.findByName(periodname);
-        return null;
+    @GetMapping(path = {"/edit", "/edit/{id}"})
+    public String editPeriodById(Model model, @PathVariable("id") Long period_id)
+            throws RecordNotFoundException {
+        if (period_id != null) {
+            Period period = periodService.getPeriodById(period_id);
+            model.addAttribute("period", period);
+        } else {
+            model.addAttribute("period", new Period());
+        }
+        return "add-edit-period";
     }
 
-    @GetMapping("/{id}")
-    public Period findOne(@PathVariable long id) {
-        return periodRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Period Id:" + id));}
-
-
-    @PostMapping("/addperiod")
-    public String addPeriod(@Valid Period period, BindingResult result, Model model) {
-        periodRepository.save(period);
-        model.addAttribute("periods", periodRepository.findAll());
-        return "redirect:/home";
+    @PostMapping("/create")
+    public String createOrUpdatePeriod(Period period) {
+        periodService.createOrUpdatePeriod(period);
+        return "redirect:/";
     }
 
-
-    @GetMapping("/delete/{id}")
-    public String deletePeriod(@PathVariable long id, Model model) {
-        Period period = periodRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid period Id:" + id));
-        periodRepository.delete(period);
-        model.addAttribute("periods", periodRepository.findAll());
-        return "home";
+    @DeleteMapping("/delete/{id}")
+    public String deletePeriodById(Model model, @PathVariable("id") Long id)
+            throws RecordNotFoundException {
+        periodService.deletePeriodById(id);
+        return "redirect:/";
     }
 }

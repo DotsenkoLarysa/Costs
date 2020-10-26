@@ -1,6 +1,6 @@
 package com.dots;
 
-public class SpringBootBootstrapLiveTest {
+public class SpringBootBootstrapCostsTest {
 
     private static final String API_ROOT = "http://localhost:8080/api/categories";
 
