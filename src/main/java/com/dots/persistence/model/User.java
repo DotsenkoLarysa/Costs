@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.security.Timestamp;
-import java.util.Objects;
 
 @Entity
 @Table(name = "user")
@@ -14,7 +13,7 @@ public class User {
 
     @Id
     @Column(name="user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long user_id;
 
     @NotBlank(message="Username is mandatory")

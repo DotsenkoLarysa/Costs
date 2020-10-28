@@ -2,90 +2,87 @@ package com.dots.persistence.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
-@Table(name="balance")
+@Table(name = "balance")
 public class Balance {
 
     @Id
-    @Column(name="balance_id")
+    @Column(name = "balance_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long balance_id;
 
-    @Column(name="create_date", nullable = false)
+    @Column(name = "create_date", nullable = false)
     private Date create_date;
 
-    @Column(name="necessary_plus", nullable = false)
+    @Column(name = "necessary_plus", nullable = false)
     private Double necessary_plus;
 
-    @Column(name="necessary_minus", nullable = false)
+    @Column(name = "necessary_minus", nullable = false)
     private Double necessary_minus;
 
-    @Column(name="necessary_balance", nullable = false)
+    @Column(name = "necessary_balance", nullable = false)
     private Double necessary_balance;
 
-    @Column(name="education_plus", nullable = false)
+    @Column(name = "education_plus", nullable = false)
     private Double education_plus;
 
-    @Column(name="education_minus", nullable = false)
+    @Column(name = "education_minus", nullable = false)
     private Double education_minus;
 
-    @Column(name="education_balance", nullable = false)
+    @Column(name = "education_balance", nullable = false)
     private Double education_balance;
 
-    @Column(name="accumulation_plus", nullable = false)
+    @Column(name = "accumulation_plus", nullable = false)
     private Double accumulation_plus;
 
-    @Column(name="accumulation_minus", nullable = false)
+    @Column(name = "accumulation_minus", nullable = false)
     private Double accumulation_minus;
 
-    @Column(name="accumulation_balance", nullable = false)
+    @Column(name = "accumulation_balance", nullable = false)
     private Double accumulation_balance;
 
-    @Column(name="stocks_plus", nullable = false)
+    @Column(name = "stocks_plus", nullable = false)
     private Double stocks_plus;
 
-    @Column(name="stocks_minus", nullable = false)
+    @Column(name = "stocks_minus", nullable = false)
     private Double stocks_minus;
 
-    @Column(name="stocks_balance", nullable = false)
+    @Column(name = "stocks_balance", nullable = false)
     private Double stocks_balance;
 
-    @Column(name="leisure_plus", nullable = false)
+    @Column(name = "leisure_plus", nullable = false)
     private Double leisure_plus;
 
-    @Column(name="leisure_minus", nullable = false)
+    @Column(name = "leisure_minus", nullable = false)
     private Double leisure_minus;
 
-    @Column(name="leisure_balance", nullable = false)
+    @Column(name = "leisure_balance", nullable = false)
     private Double leisure_balance;
 
-    @Column(name="charity_plus", nullable = false)
+    @Column(name = "charity_plus", nullable = false)
     private Double charity_plus;
 
-    @Column(name="charity_minus", nullable = false)
+    @Column(name = "charity_minus", nullable = false)
     private Double charity_minus;
 
-    @Column(name="charity_balance", nullable = false)
+    @Column(name = "charity_balance", nullable = false)
     private Double charity_balance;
 
-    @Column(name="cashbook_plus", nullable = false)
+    @Column(name = "cashbook_plus", nullable = false)
     private Double cashbook_plus;
 
-    @Column(name="cashbook_minus", nullable = false)
+    @Column(name = "cashbook_minus", nullable = false)
     private Double cashbook_minus;
 
-    @Column(name="cashbook_balance", nullable = false)
+    @Column(name = "cashbook_balance", nullable = false)
     private Double cashbook_balance;
 
-    @Column(name="periodId_balance", nullable = false)
-    private int periodId_balance;
 
     public Balance() {
     }
 
-    public Balance(Long balance_id, Date create_date, Double necessary_plus, Double necessary_minus, Double necessary_balance, Double education_plus, Double education_minus, Double education_balance, Double accumulation_plus, Double accumulation_minus, Double accumulation_balance, Double stocks_plus, Double stocks_minus, Double stocks_balance, Double leisure_plus, Double leisure_minus, Double leisure_balance, Double charity_plus, Double charity_minus, Double charity_balance, Double cashbook_plus, Double cashbook_minus, Double cashbook_balance, int periodId_balance) {
+    public Balance(Long balance_id, Date create_date, Double necessary_plus, Double necessary_minus, Double necessary_balance, Double education_plus, Double education_minus, Double education_balance, Double accumulation_plus, Double accumulation_minus, Double accumulation_balance, Double stocks_plus, Double stocks_minus, Double stocks_balance, Double leisure_plus, Double leisure_minus, Double leisure_balance, Double charity_plus, Double charity_minus, Double charity_balance, Double cashbook_plus, Double cashbook_minus, Double cashbook_balance) {
         this.balance_id = balance_id;
         this.create_date = create_date;
         this.necessary_plus = necessary_plus;
@@ -109,7 +106,6 @@ public class Balance {
         this.cashbook_plus = cashbook_plus;
         this.cashbook_minus = cashbook_minus;
         this.cashbook_balance = cashbook_balance;
-        this.periodId_balance = periodId_balance;
     }
 
     public long getBalance_id() {
@@ -296,14 +292,6 @@ public class Balance {
         this.cashbook_balance = cashbook_balance;
     }
 
-    public int getPeriodId_balance() {
-        return periodId_balance;
-    }
-
-    public void setPeriodId_balance(int periodId_balance) {
-        this.periodId_balance = periodId_balance;
-    }
-
     @Override
     public String toString() {
         return "Balance{" +
@@ -330,7 +318,18 @@ public class Balance {
                 ", cashbook_plus=" + cashbook_plus +
                 ", cashbook_minus=" + cashbook_minus +
                 ", cashbook_balance=" + cashbook_balance +
-                ", periodId_balance=" + periodId_balance +
                 '}';
     }
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "periodId_balance", unique = true, nullable = false, updatable = false)
+    private Period period;
+    public Period getPeriod() {
+        return period;
+    }
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+
 }

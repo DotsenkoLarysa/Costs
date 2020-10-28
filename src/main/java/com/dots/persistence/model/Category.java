@@ -2,23 +2,23 @@ package com.dots.persistence.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name="category")
+@Table(name = "category")
 public class Category {
 
     @Id
-    @Column(name="category_id")
+    @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long category_id;
 
-    @NotBlank(message="Specify the category name")
-    @Column(name="name_category", nullable = false, unique = true)
+    @NotBlank(message = "Specify the category name")
+    @Column(name = "name_category", nullable = false, unique = true)
     private String name_category;
 
-    @NotBlank(message="Indicate the percentage")
-    @Column(name="parcentage_value", nullable = false)
+    @NotBlank(message = "Indicate the percentage")
+    @Column(name = "parcentage_value", nullable = false)
     private int percentage;
 
     public Category() {
@@ -62,5 +62,16 @@ public class Category {
                 ", name_category='" + name_category + '\'' +
                 ", parcentage_value=" + percentage +
                 '}';
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "journal")
+    private Set<Journal> journal;
+
+    public Set<Journal> getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Set<Journal> journal) {
+        this.journal = journal;
     }
 }

@@ -1,7 +1,7 @@
 package com.dots.persistence.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "transaction")
@@ -46,4 +46,9 @@ public class Transaction {
                 ", name_transaction='" + name_transaction + '\'' +
                 '}';
     }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "journal")
+    private Set<Journal> journals;
+    public Set<Journal> getJournals() { return journals; }
+    public void setJournals(Set<Journal> journals) { this.journals = journals; }
 }
