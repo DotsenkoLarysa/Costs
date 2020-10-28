@@ -78,7 +78,6 @@ public class BalanceService {
                 newEntity.setCashbook_minus(balance.getCashbook_minus());
                 newEntity.setCashbook_balance(balance.getCashbook_balance());
                 newEntity.setCreate_date(balance.getCreate_date());
-                newEntity.setPeriodId_balance(balance.getPeriodId_balance());
 
                 newEntity = balanceRepository.save(newEntity);
                 return newEntity;

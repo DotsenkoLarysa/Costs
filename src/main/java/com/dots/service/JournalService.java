@@ -49,12 +49,9 @@ public class JournalService {
 
             if (journal1.isPresent()) {
                 Journal newEntity = journal1.get();
-                newEntity.setCategoryId(journal.getCategoryId());
-                newEntity.setTransactionId(journal.getTransactionId());
                 newEntity.setEvent_sum(journal.getEvent_sum());
                 newEntity.setEvent_date(journal.getEvent_date());
                 newEntity.setDescription(journal.getDescription());
-                newEntity.setPeriodId(journal.getPeriodId());
                 newEntity = journalRepository.save(newEntity);
 
                 return newEntity;
